@@ -5,13 +5,16 @@
               [io.pedestal.service.http.route.definition :refer [defroutes]]
               [ring.util.response :as ring-resp]))
 
+;; Gets called only once:
+(def json-fixture (slurp "src/aegia/fixtures/fake_response.json"))
+
 (defn about-page
   [request]
   (ring-resp/response (format "Clojure %s" (clojure-version))))
 
 (defn home-page
   [request]
-  (ring-resp/response "Hello World!"))
+  (ring-resp/response json-fixture))
 
 (defroutes routes
   [[["/" {:get home-page}
