@@ -10,7 +10,7 @@
 (deftest home-page-test
   (is (=
        (:body (response-for service :get "/"))
-       "Hello World!")))
+       "Must provide a URL parameter")))
 
 (deftest about-page-test
   (is (.contains

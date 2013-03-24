@@ -6,7 +6,7 @@
               [ring.util.response :as ring-resp]))
 
 ;; Gets called only once:
-(def json-fixture (slurp "src/aegia/fixtures/fake_response.json"))
+;;(def json-fixture (slurp "src/aegia/fixtures/fake_response.json"))
 
 (defn grab-remote
   [url-param]
@@ -18,7 +18,10 @@
 
 (defn home-page
   [request]
-  (ring-resp/response (grab-remote (:url (:query-params request)))))
+  (ring-resp/response
+    (cond
+      (contains? (:query-params request) :url) (grab-remote (:url (:query-params request)))
+      :else "Must provide a URL parameter")))
 
 (defroutes routes
   [[["/" {:get home-page}
