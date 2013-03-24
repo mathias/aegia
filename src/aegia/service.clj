@@ -8,13 +8,17 @@
 ;; Gets called only once:
 (def json-fixture (slurp "src/aegia/fixtures/fake_response.json"))
 
+(defn grab-remote
+  [url-param]
+  (slurp url-param))
+
 (defn about-page
   [request]
   (ring-resp/response (format "Clojure %s" (clojure-version))))
 
 (defn home-page
   [request]
-  (ring-resp/response json-fixture))
+  (ring-resp/response (grab-remote (:url (:query-params request)))))
 
 (defroutes routes
   [[["/" {:get home-page}
