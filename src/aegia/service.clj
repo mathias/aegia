@@ -24,7 +24,7 @@
 (defn home-page
   [request]
   (ring-resp/response
-    (cond
+    (if
       (contains? (:query-params request) :url) (grab-remote (url-param request))
       :else "Must provide a URL parameter")))
 
