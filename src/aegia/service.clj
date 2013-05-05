@@ -8,14 +8,13 @@
 ;; Gets called only once:
 ;;(def json-fixture (slurp "src/aegia/fixtures/fake_response.json"))
 
-
 (defn grab-remote
   [url]
   (slurp url))
 
-(defn url-param
+(defn get-url-in
   [request]
-  (:url (:query-params request)))
+  (get-in request [:query-params :url]))
 
 (defn about-page
   [request]
@@ -25,7 +24,7 @@
   [request]
   (ring-resp/response
     (if
-      (contains? (:query-params request) :url) (grab-remote (url-param request))
+      (contains? (:query-params request) :url) (grab-remote (get-url-in request))
       :else "Must provide a URL parameter")))
 
 (defroutes routes
