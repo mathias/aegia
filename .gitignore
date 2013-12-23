@@ -25,3 +25,5 @@ tramp
 # Org-mode
 .org-id-locations
 *_archive
+
+.DS_Store
